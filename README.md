@@ -11,7 +11,7 @@ dotnet-ef database update -s .\pro-events.API\
 ```
 
 ## Visual Studio Tips
-For helpful tips and tricks while working in Visual Studio, refer to this article.
+For helpful tips and tricks while working in Visual Studio, refer to this article: https://www.meziantou.net/visual-studio-tips-and-tricks-multi-line-and-multi-cursor-editing.htm
 
 ## JSON Sample Input for POST Action
 Use the following JSON sample input when making a POST request:
