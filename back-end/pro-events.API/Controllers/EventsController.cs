@@ -1,5 +1,7 @@
 using Microsoft.AspNetCore.Mvc;
-using pro_events.API.Models;
+using pro_events.API.Persistence;
+using pro_events.Application.IServices;
+using pro_events.Domain;
 
 namespace pro_events.API.Controllers;
 
@@ -7,62 +9,92 @@ namespace pro_events.API.Controllers;
 [Route("[controller]")]
 public class EventsController : ControllerBase
 {
-	private readonly ILogger<EventsController> _logger;
+    private readonly IEventService _service;
+    public EventsController(IEventService eventService)
+    {
+        _service = eventService;
+    }
 
-	private readonly IEnumerable<Events> _events = new Events[]
-	{
-			new() {
-				Id = 1,
-				Location = "Local A",
-				EventDate = DateTime.Now,
-				Subject = "Evento 1",
-				Amount = 100,
-				Number = "ABC123",
-				ImgUrl = "https://example.com/image1.jpg"
-			},
-			new() {
-				Id = 2,
-				Location = "Local B",
-				EventDate = DateTime.Now.AddDays(7),
-				Subject = "Evento 2",
-				Amount = 150,
-				Number = "XYZ456",
-				ImgUrl = "https://example.com/image2.jpg"
-			}
-			,
-			new() {
-				Id = 3,
-				Location = "Local C",
-				EventDate = DateTime.Now.AddDays(7),
-				Subject = "Evento 3",
-				Amount = 90,
-				Number = "XYZ789",
-				ImgUrl = "https://example.com/image3.jpg"
-			}
-	};
+    [HttpGet]
+    public async Task<IActionResult> Get()
+    {
+        try
+        {
+            return Ok(_service.GetEvents(true));
+        }
+        catch (Exception ex)
+        {
+            return BadRequest($" Erro ao recuperar eventos. Erro: {ex.Message}");
+        }
+    }
+    [HttpGet("{id}")]
+    public async Task<IActionResult> Get(int id)
+    {
+        try
+        {
+            return Ok(_service.GetEventById(id, true));
+        }
+        catch (Exception ex)
+        {
+            return this.StatusCode(StatusCodes.Status500InternalServerError, $"Erro ao recuperar o evento. Erro: {ex.Message}");
+        }
+    }
+    [HttpGet("{s}/subject")]
+    public async Task<IActionResult> Get([FromQuery] string s)
+    {
+        try
+        {
+            return Ok(_service.GetEventsBySubject(s, true));
+        }
+        catch (Exception ex)
+        {
+            return this.StatusCode(StatusCodes.Status500InternalServerError, $"Erro ao recuperar o evento. Erro: {ex.Message}");
+        }
+    }
+    [HttpPost]
+    public async Task<IActionResult> Post([FromBody] Event events)
+    {
+        try
+        {
+            if (await _service.AddEvent(events))
+                return Ok(events);
+            else
+                return BadRequest("Não foi possível adicionar o envento.");
+        }
+        catch (Exception ex)
+        {
+            return this.StatusCode(StatusCodes.Status500InternalServerError, $"Erro ao adicionar o evento. Erro: {ex.Message}");
+        }
+    }
+    [HttpPut]
+    public async Task<IActionResult> Put([FromBody] Event events)
+    {
+        try
+        {
+            if (await _service.UpdateEvent(events.Id, events))
+                return Ok(events);
+            else
+                return StatusCode(StatusCodes.Status500InternalServerError, $"Não foi possível atualizar o envento.");
+        }
+        catch (Exception ex)
+        {
+            return this.StatusCode(StatusCodes.Status500InternalServerError, $"Não foi possível atualizar o envento. Erro: {ex.Message}");
+        }
+    }
 
-	public EventsController(ILogger<EventsController> logger)
-	{
-		_logger = logger;
-	}
-
-	[HttpGet(Name = "GetEvents")]
-	public IEnumerable<Events> Get()
-	{
-		return _events;
-	}
-
-	[HttpPost]
-	public IActionResult Post([FromBody] Events events)
-	{
-		try
-		{
-			_events.Append(events);
-			return Ok(events);
-		}
-		catch (Exception ex)
-		{
-			return BadRequest(ex);
-		}
-	}
+    [HttpDelete("{id}")]
+    public async Task<IActionResult> Delete([FromQuery] int id)
+    {
+        try
+        {
+            if (await _service.DeleteEvent(id))
+                return Ok();
+            else
+                return BadRequest($"Não foi possível remover o envento.");
+        }
+        catch (Exception ex)
+        {
+            return this.StatusCode(StatusCodes.Status500InternalServerError, $"Não foi possível remover o envento. Erro: {ex.Message}");
+        }
+    }
 }

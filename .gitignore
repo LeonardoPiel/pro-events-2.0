@@ -2,4 +2,11 @@
 # This .gitignore file was automatically created by Microsoft(R) Visual Studio.
 ################################################################################
 
-/.vs/pro-events
+/.vs/*
+/back-end/pro-events.Application/bin/Debug/net6.0
+/back-end/pro-events.Application/obj
+/back-end/pro-events.Domain/bin/Debug/net6.0
+/back-end/pro-events.Domain/obj
+/back-end/pro-events.Persistence/bin/Debug/net6.0
+/back-end/pro-events.Persistence/obj
+/pro-events.Persistence/obj
