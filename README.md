@@ -28,4 +28,4 @@ Use the following JSON sample input when making a POST request:
   "ticketLots": [],
   "socials": [],
   "speakerEvents": []
-}```
+}
