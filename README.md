@@ -16,7 +16,8 @@ For helpful tips and tricks while working in Visual Studio, refer to this articl
 ## JSON Sample Input for POST Action
 Use the following JSON sample input when making a POST request:
 
-```json{
+```json
+{
   "location": "Antonio João",
   "eventDate": "2023-11-21T01:00:33.843",
   "subject": "Tereré",
