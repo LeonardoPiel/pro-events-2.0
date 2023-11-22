@@ -1,7 +1,6 @@
 using Microsoft.AspNetCore.Mvc;
-using pro_events.API.Persistence;
+using pro_events.Application.DTO.Events;
 using pro_events.Application.IServices;
-using pro_events.Domain;
 
 namespace pro_events.API.Controllers;
 
@@ -20,7 +19,7 @@ public class EventsController : ControllerBase
     {
         try
         {
-            return Ok(_service.GetEvents(true));
+            return Ok(await _service.GetEvents(true));
         }
         catch (Exception ex)
         {
@@ -40,7 +39,7 @@ public class EventsController : ControllerBase
         }
     }
     [HttpGet("{s}/subject")]
-    public async Task<IActionResult> Get([FromQuery] string s)
+    public async Task<IActionResult> Get(string s)
     {
         try
         {
@@ -52,7 +51,7 @@ public class EventsController : ControllerBase
         }
     }
     [HttpPost]
-    public async Task<IActionResult> Post([FromBody] Event events)
+    public async Task<IActionResult> Post([FromBody] EventDto events)
     {
         try
         {
@@ -67,7 +66,7 @@ public class EventsController : ControllerBase
         }
     }
     [HttpPut]
-    public async Task<IActionResult> Put([FromBody] Event events)
+    public async Task<IActionResult> Put([FromBody] EventDto events)
     {
         try
         {
@@ -83,7 +82,7 @@ public class EventsController : ControllerBase
     }
 
     [HttpDelete("{id}")]
-    public async Task<IActionResult> Delete([FromQuery] int id)
+    public async Task<IActionResult> Delete(int id)
     {
         try
         {

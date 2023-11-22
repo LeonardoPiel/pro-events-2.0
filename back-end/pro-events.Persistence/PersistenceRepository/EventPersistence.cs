@@ -6,9 +6,11 @@ using pro_events.Persistence.Repository;
 
 namespace pro_events.Persistence
 {
-    public class EventsPersistence : ProEventsPersistence, IEventsPersistence
+    public class EventPersistence : ProEventsPersistence, IEventsPersistence
     {
-        public EventsPersistence(ProEventsContext context) : base(context) {}
+        public EventPersistence(ProEventsContext context) : base(context) 
+        {
+        }
 
         public async Task<Event[]> GetAllEventsAsync(bool includeSpeakerDetail)
         {

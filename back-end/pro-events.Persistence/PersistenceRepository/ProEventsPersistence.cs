@@ -1,4 +1,5 @@
-﻿using pro_events.API.Persistence;
+﻿using Microsoft.EntityFrameworkCore;
+using pro_events.API.Persistence;
 using pro_events.Persistence.IPersistence;
 
 namespace pro_events.Persistence.Repository
@@ -9,6 +10,7 @@ namespace pro_events.Persistence.Repository
         public ProEventsPersistence(ProEventsContext context)
         {
             _context = context;
+            context.ChangeTracker.QueryTrackingBehavior = QueryTrackingBehavior.NoTracking;
         }
         public void Add<T>(T entity) where T : class
         {

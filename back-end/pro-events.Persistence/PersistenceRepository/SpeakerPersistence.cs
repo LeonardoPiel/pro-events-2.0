@@ -12,7 +12,9 @@ namespace pro_events.Persistence.Repository
 {
     public class SpeakerPersistence : ProEventsPersistence, ISpeakerPersistence
     {
-        public SpeakerPersistence(ProEventsContext context) : base(context) {}
+        public SpeakerPersistence(ProEventsContext context) : base(context) 
+        {
+        }
         public async Task<Speaker[]> GetAllSpeakersAsync(bool includeEventsDetail)
         {
             IQueryable<Speaker> query = _context.Speakers

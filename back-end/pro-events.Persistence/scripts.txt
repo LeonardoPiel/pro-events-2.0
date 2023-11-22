@@ -1,4 +1,0 @@
-Atualizando banco de dados:
-
-dotnet-ef migrations add secondChanges -p .\pro-events.Persistence\ -s .\pro-events.API\
-dotnet-ef database update -s .\pro-events.API\

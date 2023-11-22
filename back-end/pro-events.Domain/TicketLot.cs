@@ -14,6 +14,6 @@ namespace pro_events.Domain
 		public DateTime End { get; set; }
 		public int Amount { get; set; }
 		public int EventId { get; set; }
-		public Event Event { get; set; }
+		public Event? Event { get; set; }
 	}
 }

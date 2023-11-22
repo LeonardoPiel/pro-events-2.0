@@ -20,7 +20,18 @@ namespace pro_events.API.Persistence
 		{
 			modelBuilder.Entity<SpeakerEvent>()
 			.HasKey(SE => new { SE.EventId, SE.SpeakerId });
-		}
+
+			modelBuilder.Entity<Event>()
+				.HasMany(e => e.Socials)
+				.WithOne(e => e.Event)
+				.OnDelete(DeleteBehavior.Cascade);
+
+            modelBuilder.Entity<Speaker>()
+                .HasMany(e => e.Socials)
+                .WithOne(e => e.Speaker)
+                .OnDelete(DeleteBehavior.Cascade);
+
+        }
 
 	}
 }

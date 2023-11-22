@@ -2,6 +2,7 @@
 using System;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 using pro_events.API.Persistence;
 
@@ -10,9 +11,11 @@ using pro_events.API.Persistence;
 namespace pro_events.Persistence.Migrations
 {
     [DbContext(typeof(ProEventsContext))]
-    partial class ProEventsContextModelSnapshot : ModelSnapshot
+    [Migration("20231121015122_obrigatoriedadeEvento")]
+    partial class obrigatoriedadeEvento
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        /// <inheritdoc />
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder.HasAnnotation("ProductVersion", "7.0.14");
@@ -155,17 +158,13 @@ namespace pro_events.Persistence.Migrations
 
             modelBuilder.Entity("pro_events.Domain.Social", b =>
                 {
-                    b.HasOne("pro_events.Domain.Event", "Event")
+                    b.HasOne("pro_events.Domain.Event", null)
                         .WithMany("Socials")
-                        .HasForeignKey("EventId")
-                        .OnDelete(DeleteBehavior.Cascade);
+                        .HasForeignKey("EventId");
 
                     b.HasOne("pro_events.Domain.Speaker", "Speaker")
                         .WithMany("Socials")
-                        .HasForeignKey("SpeakerId")
-                        .OnDelete(DeleteBehavior.Cascade);
-
-                    b.Navigation("Event");
+                        .HasForeignKey("SpeakerId");
 
                     b.Navigation("Speaker");
                 });

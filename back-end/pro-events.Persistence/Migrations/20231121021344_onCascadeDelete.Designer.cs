@@ -2,6 +2,7 @@
 using System;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 using pro_events.API.Persistence;
 
@@ -10,9 +11,11 @@ using pro_events.API.Persistence;
 namespace pro_events.Persistence.Migrations
 {
     [DbContext(typeof(ProEventsContext))]
-    partial class ProEventsContextModelSnapshot : ModelSnapshot
+    [Migration("20231121021344_onCascadeDelete")]
+    partial class onCascadeDelete
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        /// <inheritdoc />
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder.HasAnnotation("ProductVersion", "7.0.14");
@@ -58,7 +61,7 @@ namespace pro_events.Persistence.Migrations
                         .ValueGeneratedOnAdd()
                         .HasColumnType("INTEGER");
 
-                    b.Property<int?>("EventId")
+                    b.Property<int>("EventId")
                         .HasColumnType("INTEGER");
 
                     b.Property<string>("Name")
@@ -158,7 +161,8 @@ namespace pro_events.Persistence.Migrations
                     b.HasOne("pro_events.Domain.Event", "Event")
                         .WithMany("Socials")
                         .HasForeignKey("EventId")
-                        .OnDelete(DeleteBehavior.Cascade);
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
 
                     b.HasOne("pro_events.Domain.Speaker", "Speaker")
                         .WithMany("Socials")

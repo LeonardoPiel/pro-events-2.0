@@ -1,4 +1,6 @@
-﻿using pro_events.Application.IServices;
+﻿using AutoMapper;
+using pro_events.Application.DTO.Events;
+using pro_events.Application.IServices;
 using pro_events.Domain;
 using pro_events.Persistence.IPersistence;
 using System;
@@ -13,17 +15,20 @@ namespace pro_events.Application.ServicesRepository
     {
         private readonly IEventsPersistence _eventPersistence;
         private readonly IProEventsPersistence _persistence;
+        private readonly IMapper _mapper;
 
-        public EventService(IEventsPersistence eventsPersistence, IProEventsPersistence proEventsPersistence)
+        public EventService(IEventsPersistence eventsPersistence, IProEventsPersistence proEventsPersistence, IMapper mapper)
         {
             _eventPersistence = eventsPersistence;
             _persistence = proEventsPersistence;
+            _mapper = mapper;
         }
-        public async Task<bool> AddEvent(Event model)
+        public async Task<bool> AddEvent(EventDto model)
         {
             try
             {
-                _persistence.Add(model);
+                var rs = _mapper.Map<Event>(model);
+                _persistence.Add(rs);
                 return await _persistence.SaveChangesAsync();
             }
             catch (Exception ex)
@@ -31,14 +36,15 @@ namespace pro_events.Application.ServicesRepository
                 throw new Exception(ex.Message);
             }
         }
-        public async Task<bool> UpdateEvent(int id, Event model)
+        public async Task<bool> UpdateEvent(int id, EventDto model)
         {
             try
             {
                 var result = await _eventPersistence.GetById(id);
                 if(result == null) return false;
-                model.Id = result.Id;
-                _persistence.Update(model);
+                var rs = _mapper.Map<Event>(model);
+                rs.Id = result.Id;
+                _persistence.Update(rs);
                 return await _persistence.SaveChangesAsync();
             }
             catch (Exception ex)
@@ -58,22 +64,24 @@ namespace pro_events.Application.ServicesRepository
                 throw new Exception(ex.Message);
             }
         }
-        public async Task<Event> GetEventById(int id, bool includeSpeakerDetail = false)
+        public async Task<EventDto> GetEventById(int id, bool includeSpeakerDetail = false)
         {
             try
             {
-                return await _eventPersistence.GetById(id, includeSpeakerDetail);
+                var rs = _mapper.Map<EventDto>(await _eventPersistence.GetById(id, includeSpeakerDetail));
+                return rs;
             }
             catch(Exception ex)
             {
                 throw new Exception(ex.Message);
             }
         }
-        public async Task<Event[]> GetEvents(bool includeSpeakerDetail = false)
+        public async Task<EventDto[]> GetEvents(bool includeSpeakerDetail = false)
         {
             try
             {
-                return await _eventPersistence.GetAllEventsAsync(includeSpeakerDetail);
+                var rs = _mapper.Map<EventDto[]>(await _eventPersistence.GetAllEventsAsync(includeSpeakerDetail));
+                return rs;
             }
             catch(Exception ex) 
             { 
@@ -81,11 +89,12 @@ namespace pro_events.Application.ServicesRepository
             }
         }
 
-        public async Task<Event[]> GetEventsBySubject(string s, bool includeSpeakerDetail = false)
+        public async Task<EventDto[]> GetEventsBySubject(string s, bool includeSpeakerDetail = false)
         {
             try
             {
-                return await _eventPersistence.GetAllEventsBySubjectAsync(s, includeSpeakerDetail);
+                var rs = _mapper.Map<EventDto[]>(await _eventPersistence.GetAllEventsBySubjectAsync(s, includeSpeakerDetail));
+                return rs;
             }
             catch(Exception ex) 
             {

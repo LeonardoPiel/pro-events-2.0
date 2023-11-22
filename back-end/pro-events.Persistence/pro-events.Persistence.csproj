@@ -1,6 +1,10 @@
 <Project Sdk="Microsoft.NET.Sdk">
 
   <ItemGroup>
+    <None Remove="scripts.txt" />
+  </ItemGroup>
+
+  <ItemGroup>
     <ProjectReference Include="..\pro-events.Domain\pro-events.Domain.csproj" />
   </ItemGroup>
 

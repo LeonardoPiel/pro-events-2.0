@@ -1,6 +1,14 @@
 ﻿<Project Sdk="Microsoft.NET.Sdk">
 
   <ItemGroup>
+    <None Include="Helpers\ProEventsProfile.cs~RF12723c74.TMP" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <PackageReference Include="AutoMapper.Extensions.Microsoft.DependencyInjection" Version="12.0.1" />
+  </ItemGroup>
+
+  <ItemGroup>
     <ProjectReference Include="..\pro-events.Domain\pro-events.Domain.csproj" />
     <ProjectReference Include="..\pro-events.Persistence\pro-events.Persistence.csproj" />
   </ItemGroup>
