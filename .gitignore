@@ -12,8 +12,3 @@
 /pro-events.Persistence/obj
 /back-end/pro-events.API/sqlite-pro-events.db
 /.editorconfig
-/back-end/pro-events.Application/bin/Release/net6.0
-/back-end/pro-events.Domain/bin/Release/net6.0
-/back-end/pro-events.Persistence/bin/Release/net6.0
-/back-end/pro-events.API/sqlite-pro-events.db-shm
-/back-end/pro-events.API/sqlite-pro-events.db-wal
