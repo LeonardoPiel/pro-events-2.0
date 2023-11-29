@@ -11,9 +11,9 @@ namespace pro_events.Application.ServicesRepository
 {
     public class SpeakerService : ISpeakerService
     {
-        private readonly IProEventsPersistence _persistence;
+        private readonly IDefaultPersistence _persistence;
         private readonly ISpeakerPersistence _speakerPersistence;
-        public SpeakerService(IProEventsPersistence persistence, ISpeakerPersistence speakerPersistence)
+        public SpeakerService(IDefaultPersistence persistence, ISpeakerPersistence speakerPersistence)
         {
             _speakerPersistence = speakerPersistence;
             _persistence = persistence;

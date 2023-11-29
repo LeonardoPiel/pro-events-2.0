@@ -1,5 +1,6 @@
 ﻿using pro_events.Application.DTO.Events;
 using pro_events.Domain;
+using pro_events.Persistence.Helpers;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -12,9 +13,8 @@ namespace pro_events.Application.IServices
     {
         Task<bool> AddEvent(EventDto model);
         Task<bool> UpdateEvent(int id, EventDto model);
-        Task<bool> DeleteEvent(int id);
-        Task<EventDto> GetEventById(int id, bool includeSpeakerDetail = false);
-        Task<EventDto[]> GetEvents(bool includeSpeakerDetail = false);
-        Task<EventDto[]> GetEventsBySubject(string s, bool includeSpeakerDetail = false);
+        Task<bool> DeleteEvent(int userId, int id);
+        Task<EventDto> GetEventByIdAsync(int userId, int id, bool includeSpeakerDetail = false);
+        Task<PageList<EventDto>> GetAllEventsAsync(PageParameters pageParams, int userId, bool includeSpeakerDetail = false);
     }
 }

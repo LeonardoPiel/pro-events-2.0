@@ -10,7 +10,7 @@ using System.Threading.Tasks;
 
 namespace pro_events.Persistence.Repository
 {
-    public class SpeakerPersistence : ProEventsPersistence, ISpeakerPersistence
+    public class SpeakerPersistence : DefaultPersistence, ISpeakerPersistence
     {
         public SpeakerPersistence(ProEventsContext context) : base(context) 
         {
@@ -26,7 +26,7 @@ namespace pro_events.Persistence.Repository
         }
         public async Task<Speaker[]> GetAllSpeakersByNameAsync(string s, bool includeEventsDetail)
         {
-            IQueryable<Speaker> query = _context.Speakers.Where(e => (e.Name + e.LastName).ToLower().Contains(s.ToLower()))
+            IQueryable<Speaker> query = _context.Speakers.Where(e => (e.User.Name + e.User.LastName).ToLower().Contains(s.ToLower()))
                 .Include(e => e.Socials);
             query = includeEventsDetail ? query.Include(e => e.SpeakerEvents).ThenInclude(se => se.Event) : query;
             query = query.OrderBy(e => e.Id);

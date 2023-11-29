@@ -17,7 +17,6 @@ namespace pro_events.Application.DTO.TicketLots
         public DateTime Init { get; set; }
         public DateTime End { get; set; }
         public int Amount { get; set; }
-        [Required]
         public int EventId { get; set; }
     }
 }

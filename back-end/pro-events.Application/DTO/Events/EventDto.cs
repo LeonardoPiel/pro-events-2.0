@@ -20,6 +20,7 @@ namespace pro_events.Application.DTO.Events
         public string? ImgUrl { get; set; }
         [Phone]
         public string? Cellphone { get; set; }
+        public int UserId { get; set; }
         [EmailAddress]
         public string Email { get; set; }
         public IEnumerable<TicketLotDto>? TicketLots { get; set; }

@@ -11,7 +11,7 @@ using System.Threading.Tasks;
 
 namespace pro_events.Persistence.PersistenceRepository
 {
-    public class TicketLotPersistence : ProEventsPersistence, ITicketLotPersistence
+    public class TicketLotPersistence : DefaultPersistence, ITicketLotPersistence
     {
         public TicketLotPersistence(ProEventsContext context) : base(context)
         {

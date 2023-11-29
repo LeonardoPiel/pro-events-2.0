@@ -15,9 +15,9 @@ namespace pro_events.Application.ServicesRepository
     public class TicketLotService : ITicketLotService
     {
         private readonly ITicketLotPersistence _ticketLotPersistence;
-        private readonly IProEventsPersistence _persistence;
+        private readonly IDefaultPersistence _persistence;
         private readonly IMapper _mapper;
-        public TicketLotService(ITicketLotPersistence ticketLotPersistence, IProEventsPersistence persistence, IMapper mapper)
+        public TicketLotService(ITicketLotPersistence ticketLotPersistence, IDefaultPersistence persistence, IMapper mapper)
         {
             _ticketLotPersistence = ticketLotPersistence;
             _persistence = persistence;
@@ -48,13 +48,11 @@ namespace pro_events.Application.ServicesRepository
                     if (model.EventId == 0)
                     {
                         return false;
-                        throw new ArgumentNullException("invalid EventId");
                     }
                     var ticketLots = await _ticketLotPersistence.GetTicketLotByEventIdAsync(model.EventId);
                     if (ticketLots == null)
                     {
                         return false;
-                        throw new ArgumentException($"Ticket lot by this eventId: {model.EventId} was not found");
                     }
                     if (model.Id == 0)
                     {
@@ -72,7 +70,6 @@ namespace pro_events.Application.ServicesRepository
             catch(Exception ex)
             {
                 return false;
-                throw new Exception(ex.Message);
             }
         }
 
@@ -92,7 +89,6 @@ namespace pro_events.Application.ServicesRepository
             catch(Exception ex)
             {
                 return false;
-                throw new Exception(ex.Message);
             }
         }
 

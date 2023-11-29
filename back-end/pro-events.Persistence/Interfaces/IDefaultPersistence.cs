@@ -6,7 +6,7 @@ using System.Threading.Tasks;
 
 namespace pro_events.Persistence.IPersistence
 {
-    public interface IProEventsPersistence
+    public interface IDefaultPersistence
     {
         void Add<T>(T entity) where T : class;
         void Update<T>(T entity) where T : class;

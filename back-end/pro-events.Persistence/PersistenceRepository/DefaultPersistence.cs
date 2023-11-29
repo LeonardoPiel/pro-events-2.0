@@ -4,10 +4,10 @@ using pro_events.Persistence.IPersistence;
 
 namespace pro_events.Persistence.Repository
 {
-    public class ProEventsPersistence : IProEventsPersistence
+    public class DefaultPersistence : IDefaultPersistence
     {
         protected readonly ProEventsContext _context;
-        public ProEventsPersistence(ProEventsContext context)
+        public DefaultPersistence(ProEventsContext context)
         {
             _context = context;
             context.ChangeTracker.QueryTrackingBehavior = QueryTrackingBehavior.NoTracking;

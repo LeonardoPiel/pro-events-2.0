@@ -1,3 +1,4 @@
+using pro_events.Domain.Identity;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -15,7 +16,9 @@ namespace pro_events.Domain
 		public string? ImgUrl { get; set; }
 		public string? Cellphone { get; set; }
 		public string Email { get; set; }
-		public IEnumerable<TicketLot>? TicketLots { get; set; }
+		public int UserId { get; set; }
+        public User User { get; set; }
+        public IEnumerable<TicketLot>? TicketLots { get; set; }
 		public IEnumerable<Social>? Socials { get; set; }
 		public IEnumerable<SpeakerEvent>? SpeakerEvents { get; set; }
 	}
